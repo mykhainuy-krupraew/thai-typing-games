@@ -1,0 +1,1223 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>พิมพ์สนุก ภาษาไทย</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      padding: 20px;
+      display: grid;
+      place-items: center;
+      font-family: Tahoma, "Leelawadee UI", sans-serif;
+      color: #17324d;
+      background: linear-gradient(135deg, #b9efff, #fff0a6);
+    }
+
+    .game {
+      width: min(96%, 900px);
+      padding: 28px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: 28px;
+      box-shadow: 0 14px 32px rgba(23, 50, 77, 0.2);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      color: #e85d4a;
+      font-size: clamp(30px, 5vw, 44px);
+    }
+
+    h2 {
+      color: #245a91;
+    }
+
+    .subtitle {
+      margin: 0 0 16px;
+      font-size: 18px;
+    }
+
+    .school-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin: 16px 0 20px;
+      padding: 16px;
+      border: 2px solid #8ecde3;
+      border-radius: 16px;
+      text-align: left;
+      background: #eefaff;
+    }
+
+    .school-logo {
+      width: 88px;
+      height: 88px;
+      flex-shrink: 0;
+      object-fit: contain;
+      border-radius: 50%;
+    }
+
+    .school-info {
+      flex: 1;
+    }
+
+    .school-name {
+      color: #245a91;
+      font-size: clamp(20px, 4vw, 26px);
+      font-weight: bold;
+      line-height: 1.4;
+    }
+
+    .teacher-name {
+      margin-top: 6px;
+      color: #4b6478;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .student-form {
+      margin: 18px 0;
+      padding: 18px;
+      border-radius: 18px;
+      text-align: left;
+      background: #f0faff;
+    }
+
+    .student-form label {
+      display: block;
+      margin: 12px 0 6px;
+      color: #245a91;
+      font-weight: bold;
+    }
+
+    .student-form input,
+    .student-form select {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #9dcfe0;
+      border-radius: 12px;
+      background: white;
+      color: #17324d;
+      font-family: inherit;
+      font-size: 18px;
+    }
+
+    .student-form input:focus,
+    .student-form select:focus {
+      border-color: #e85d4a;
+      outline: none;
+    }
+
+    .student-form input:disabled,
+    .student-form select:disabled {
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    .high-score {
+      margin: 12px 0;
+      padding: 12px;
+      border-radius: 14px;
+      color: #805d00;
+      background: #fff4c9;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .lesson-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin: 16px 0 20px;
+    }
+
+    .lesson-dot {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 0;
+      border-radius: 50%;
+      color: #456;
+      background: #e4edf1;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .lesson-dot:hover {
+      background: #b8e9f8;
+      transform: scale(1.08);
+    }
+
+    .lesson-dot.current {
+      color: white;
+      background: #e85d4a;
+      transform: scale(1.1);
+    }
+
+    .lesson-dot.done {
+      color: white;
+      background: #55b96d;
+    }
+
+    .status {
+      display: flex;
+      gap: 12px;
+      margin: 18px 0;
+    }
+
+    .card {
+      flex: 1;
+      padding: 12px 8px;
+      border-radius: 16px;
+      background: #e8f7ff;
+      font-size: 17px;
+      font-weight: bold;
+    }
+
+    .word-box {
+      min-height: 135px;
+      display: grid;
+      place-items: center;
+      margin: 20px 0 16px;
+      padding: 20px;
+      border: 4px dashed #4bb6d8;
+      border-radius: 20px;
+      background: #f5fcff;
+    }
+
+    #word {
+      color: #245a91;
+      font-size: clamp(28px, 7vw, 52px);
+      font-weight: bold;
+      word-break: break-word;
+    }
+
+    #answer {
+      width: 100%;
+      padding: 16px;
+      border: 3px solid #9dcfe0;
+      border-radius: 16px;
+      outline: none;
+      font-family: inherit;
+      font-size: clamp(22px, 5vw, 30px);
+      text-align: center;
+    }
+
+    #answer:focus {
+      border-color: #e85d4a;
+      box-shadow: 0 0 0 4px #ffe0da;
+    }
+
+    .message {
+      min-height: 32px;
+      margin: 14px 0;
+      font-size: 19px;
+      font-weight: bold;
+    }
+
+    .button-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .action-button {
+      padding: 13px 20px;
+      border: 0;
+      border-radius: 16px;
+      color: white;
+      background: #e85d4a;
+      font-family: inherit;
+      font-size: 18px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .action-button:hover {
+      filter: brightness(0.92);
+    }
+
+    .secondary-button {
+      background: #4b9ec0;
+    }
+
+    .print-button {
+      background: #55a96b;
+    }
+
+    .export-button {
+      background: #217346;
+    }
+
+    .danger-button {
+      background: #b83b3b;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 18px;
+      text-align: left;
+      background: #fff4cf;
+      font-size: 19px;
+      line-height: 1.8;
+    }
+
+    .lesson-score {
+      margin-top: 10px;
+      color: #4b6478;
+      font-size: 16px;
+    }
+
+    .report-header {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid #245a91;
+    }
+
+    .report-logo {
+      width: 90px;
+      height: 90px;
+      flex-shrink: 0;
+      object-fit: contain;
+    }
+
+    .report-title {
+      flex: 1;
+    }
+
+    .report-title h2 {
+      margin: 0 0 5px;
+      color: #245a91;
+      font-size: 25px;
+    }
+
+    .report-school-name {
+      color: #17324d;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .records-section {
+      margin-top: 30px;
+      padding-top: 20px;
+      border-top: 2px solid #d9eaf0;
+      text-align: left;
+    }
+
+    .records-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .records-header h2 {
+      margin: 0;
+      font-size: 22px;
+    }
+
+    .record-count {
+      padding: 6px 10px;
+      border-radius: 20px;
+      background: #e8f7ff;
+      color: #245a91;
+      font-size: 14px;
+      font-weight: bold;
+      white-space: nowrap;
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      border: 1px solid #cfe4ec;
+      border-radius: 12px;
+    }
+
+    table {
+      width: 100%;
+      min-width: 720px;
+      border-collapse: collapse;
+      background: white;
+      font-size: 15px;
+    }
+
+    th,
+    td {
+      padding: 11px 9px;
+      border-bottom: 1px solid #dcecf2;
+      text-align: center;
+    }
+
+    th {
+      color: white;
+      background: #245a91;
+      white-space: nowrap;
+    }
+
+    tbody tr:nth-child(even) {
+      background: #f5fbfe;
+    }
+
+    tbody tr:hover {
+      background: #fff8df;
+    }
+
+    .delete-record-button {
+      padding: 7px 10px;
+      border: 0;
+      border-radius: 8px;
+      color: white;
+      background: #b83b3b;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 520px) {
+      body {
+        padding: 10px;
+      }
+
+      .game {
+        padding: 18px;
+      }
+
+      .school-header {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .school-logo {
+        width: 76px;
+        height: 76px;
+      }
+
+      .status {
+        gap: 7px;
+      }
+
+      .card {
+        font-size: 14px;
+      }
+
+      .lesson-dot {
+        width: 36px;
+        height: 36px;
+      }
+
+      .records-header h2 {
+        font-size: 18px;
+      }
+    }
+
+    @media print {
+      body {
+        display: block;
+        padding: 0;
+        background: white;
+      }
+
+      body * {
+        visibility: hidden;
+      }
+
+      #result,
+      #result * {
+        visibility: visible;
+      }
+
+      #result {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        margin: 0;
+        padding: 28px;
+        border: 2px solid #245a91;
+        border-radius: 0;
+        background: white;
+        color: black;
+      }
+
+      .report-logo {
+        width: 82px;
+        height: 82px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="game">
+    <h1>⌨️ พิมพ์สนุก ภาษาไทย</h1>
+    <p class="subtitle">ฝึกพิมพ์ภาษาไทย 10 บท จากง่ายไปยาก</p>
+
+    <section class="school-header">
+      <img
+        class="school-logo"
+        src="school-logo.png"
+        alt="ตราโรงเรียนชุมชนวัดโพธิ์ทอง ปกาสิตวิทยา"
+      >
+
+      <div class="school-info">
+        <div class="school-name">
+          โรงเรียนชุมชนวัดโพธิ์ทอง “ปกาสิตวิทยา”
+        </div>
+        <div class="teacher-name">
+          ครูผู้สอน: ครูแพรวพัชราพร พ่วงพันธ์
+        </div>
+      </div>
+    </section>
+
+    <section class="student-form">
+      <label for="studentName">ชื่อนักเรียน</label>
+      <input
+        id="studentName"
+        type="text"
+        placeholder="เช่น เด็กหญิงมานี ใจดี"
+        autocomplete="name"
+      >
+
+      <label for="studentClass">ชั้นเรียน</label>
+      <select id="studentClass">
+        <option value="">-- เลือกชั้นเรียน --</option>
+        <option value="ป.1">ประถมศึกษาปีที่ 1</option>
+        <option value="ป.2">ประถมศึกษาปีที่ 2</option>
+        <option value="ป.3">ประถมศึกษาปีที่ 3</option>
+        <option value="ป.4">ประถมศึกษาปีที่ 4</option>
+        <option value="ป.5">ประถมศึกษาปีที่ 5</option>
+        <option value="ป.6">ประถมศึกษาปีที่ 6</option>
+      </select>
+    </section>
+
+    <div class="high-score">
+      🏆 คะแนนสูงสุด: <span id="highScore">0</span>/50 คะแนน
+    </div>
+
+    <p><strong>เลือกบทเรียน</strong></p>
+    <div id="lessonList" class="lesson-list"></div>
+
+    <section class="status">
+      <div class="card">📘 บทเรียน<br><span id="lesson">-</span>/10</div>
+      <div class="card">⭐ คะแนนรวม<br><span id="score">0</span></div>
+      <div class="card">📝 ข้อ<br><span id="question">-</span>/5</div>
+    </section>
+
+    <section class="word-box">
+      <div id="word">กรอกข้อมูล แล้วเริ่มเรียนได้เลย</div>
+    </section>
+
+    <input
+      id="answer"
+      type="text"
+      placeholder="พิมพ์คำที่เห็นที่นี่"
+      autocomplete="off"
+      disabled
+    >
+
+    <p id="message" class="message">
+      กรุณากรอกชื่อนักเรียนและเลือกชั้นเรียนก่อนเริ่มเรียน
+    </p>
+
+    <div class="button-group">
+      <button id="startBtn" class="action-button" type="button">
+        เริ่มเรียนตั้งแต่บทที่ 1
+      </button>
+      <button id="restartBtn" class="action-button secondary-button hidden" type="button">
+        เริ่มใหม่
+      </button>
+      <button id="printBtn" class="action-button print-button hidden" type="button">
+        🖨️ พิมพ์ใบรายงานผล
+      </button>
+      <button id="exportBtn" class="action-button export-button hidden" type="button">
+        📄 ส่งออกผลรายบุคคล
+      </button>
+      <button id="exportAllBtn" class="action-button export-button" type="button">
+        📊 ส่งออกผลนักเรียนทั้งหมด
+      </button>
+      <button id="clearRecordsBtn" class="action-button danger-button" type="button">
+        🗑️ ล้างข้อมูลที่บันทึก
+      </button>
+    </div>
+
+    <div id="result" class="result hidden"></div>
+
+    <section class="records-section">
+      <div class="records-header">
+        <h2>📋 รายชื่อและผลการเรียน</h2>
+        <span id="recordCount" class="record-count">0 รายการ</span>
+      </div>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>ลำดับ</th>
+              <th>วันที่</th>
+              <th>ชื่อนักเรียน</th>
+              <th>ชั้น</th>
+              <th>คะแนนรวม</th>
+              <th>ร้อยละ</th>
+              <th>ผลประเมิน</th>
+              <th>จัดการ</th>
+            </tr>
+          </thead>
+          <tbody id="recordsTableBody">
+            <tr>
+              <td colspan="8">ยังไม่มีผลการเรียนที่บันทึกไว้</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const SCHOOL_NAME = 'โรงเรียนชุมชนวัดโพธิ์ทอง “ปกาสิตวิทยา”';
+    const TEACHER_NAME = "ครูแพรวพัชราพร พ่วงพันธ์";
+
+    const RECORDS_KEY = "thaiTypingStudentRecords";
+    const HIGH_SCORE_KEY = "thaiTypingHighScore";
+
+    const lessons = [
+      {
+        title: "บทที่ 1: คำสั้น",
+        words: ["กบ", "ปลา", "นก", "หมา", "แมว"]
+      },
+      {
+        title: "บทที่ 2: คนในครอบครัว",
+        words: ["พ่อ", "แม่", "ปู่", "ย่า", "พี่"]
+      },
+      {
+        title: "บทที่ 3: สิ่งของใกล้ตัว",
+        words: ["โต๊ะ", "เก้าอี้", "แก้ว", "จาน", "ช้อน"]
+      },
+      {
+        title: "บทที่ 4: สถานที่",
+        words: ["บ้าน", "วัด", "ตลาด", "สวน", "โรงเรียน"]
+      },
+      {
+        title: "บทที่ 5: ธรรมชาติ",
+        words: ["ดอกไม้", "ท้องฟ้า", "ภูเขา", "แม่น้ำ", "สายฝน"]
+      },
+      {
+        title: "บทที่ 6: อาหาร",
+        words: ["ข้าวผัด", "ไข่ดาว", "ผลไม้", "ขนมปัง", "น้ำส้ม"]
+      },
+      {
+        title: "บทที่ 7: คำกริยา",
+        words: ["เดินเร็ว", "วิ่งเล่น", "อ่านหนังสือ", "เขียนคำ", "วาดรูป"]
+      },
+      {
+        title: "บทที่ 8: วลีสั้น",
+        words: [
+          "ฉันรักแม่",
+          "แมวกินปลา",
+          "นกบินสูง",
+          "เด็กอ่านหนังสือ",
+          "ครูสอนภาษาไทย"
+        ]
+      },
+      {
+        title: "บทที่ 9: ประโยคสั้น",
+        words: [
+          "ฉันไปโรงเรียนทุกวัน",
+          "พ่อปลูกต้นไม้ที่สวน",
+          "แม่ทำอาหารอร่อย",
+          "เพื่อนของฉันใจดี",
+          "เราช่วยกันรักษาความสะอาด"
+        ]
+      },
+      {
+        title: "บทที่ 10: แบบทดสอบรวม",
+        words: [
+          "ฉันตั้งใจเรียนภาษาไทย",
+          "เด็กดีต้องมีความรับผิดชอบ",
+          "เราควรพูดจาสุภาพกับทุกคน",
+          "การฝึกพิมพ์ช่วยให้ทำงานได้เร็ว",
+          "ฉันภูมิใจที่พิมพ์ภาษาไทยได้"
+        ]
+      }
+    ];
+
+    const studentNameEl = document.getElementById("studentName");
+    const studentClassEl = document.getElementById("studentClass");
+    const lessonListEl = document.getElementById("lessonList");
+    const lessonEl = document.getElementById("lesson");
+    const scoreEl = document.getElementById("score");
+    const questionEl = document.getElementById("question");
+    const wordEl = document.getElementById("word");
+    const answerEl = document.getElementById("answer");
+    const messageEl = document.getElementById("message");
+    const highScoreEl = document.getElementById("highScore");
+    const resultEl = document.getElementById("result");
+    const startBtn = document.getElementById("startBtn");
+    const restartBtn = document.getElementById("restartBtn");
+    const printBtn = document.getElementById("printBtn");
+    const exportBtn = document.getElementById("exportBtn");
+    const exportAllBtn = document.getElementById("exportAllBtn");
+    const clearRecordsBtn = document.getElementById("clearRecordsBtn");
+    const recordsTableBodyEl = document.getElementById("recordsTableBody");
+    const recordCountEl = document.getElementById("recordCount");
+
+    let currentLesson = 0;
+    let currentQuestion = 0;
+    let score = 0;
+    let lessonScores = Array(10).fill(0);
+    let started = false;
+    let selectedSingleLesson = false;
+    let lastCompletedRecordId = null;
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.textContent = String(text ?? "");
+      return div.innerHTML;
+    }
+
+    function getHighScore() {
+      return Number(localStorage.getItem(HIGH_SCORE_KEY)) || 0;
+    }
+
+    function showHighScore() {
+      highScoreEl.textContent = getHighScore();
+    }
+
+    function saveHighScore() {
+      const oldHighScore = getHighScore();
+
+      if (score > oldHighScore) {
+        localStorage.setItem(HIGH_SCORE_KEY, score);
+        showHighScore();
+        return true;
+      }
+
+      return false;
+    }
+
+    function getStudentRecords() {
+      try {
+        return JSON.parse(localStorage.getItem(RECORDS_KEY)) || [];
+      } catch {
+        return [];
+      }
+    }
+
+    function saveStudentRecords(records) {
+      localStorage.setItem(RECORDS_KEY, JSON.stringify(records));
+    }
+
+    function getResultLevel(percent) {
+      if (percent >= 90) return "ยอดเยี่ยม";
+      if (percent >= 70) return "ดีมาก";
+      if (percent >= 50) return "ผ่านเกณฑ์";
+      return "ควรฝึกเพิ่ม";
+    }
+
+    function loadStudentInfo() {
+      studentNameEl.value = localStorage.getItem("thaiTypingStudentName") || "";
+      studentClassEl.value = localStorage.getItem("thaiTypingStudentClass") || "";
+    }
+
+    function checkStudentInfo() {
+      const studentName = studentNameEl.value.trim();
+      const studentClass = studentClassEl.value;
+
+      if (!studentName || !studentClass) {
+        messageEl.textContent = "กรุณากรอกชื่อนักเรียนและเลือกชั้นเรียนก่อนเริ่มค่ะ";
+
+        if (!studentName) {
+          studentNameEl.focus();
+        } else {
+          studentClassEl.focus();
+        }
+
+        return false;
+      }
+
+      localStorage.setItem("thaiTypingStudentName", studentName);
+      localStorage.setItem("thaiTypingStudentClass", studentClass);
+
+      return true;
+    }
+
+    function setStudentFormDisabled(disabled) {
+      studentNameEl.disabled = disabled;
+      studentClassEl.disabled = disabled;
+    }
+
+    function createLessonDots() {
+      lessonListEl.innerHTML = "";
+
+      lessons.forEach((lesson, index) => {
+        const dot = document.createElement("button");
+        dot.className = "lesson-dot";
+        dot.textContent = index + 1;
+        dot.title = lesson.title;
+        dot.type = "button";
+
+        if (started && index === currentLesson) {
+          dot.classList.add("current");
+        }
+
+        if (started && !selectedSingleLesson && index < currentLesson) {
+          dot.classList.add("done");
+          dot.textContent = "✓";
+        }
+
+        dot.addEventListener("click", () => startSelectedLesson(index));
+        lessonListEl.appendChild(dot);
+      });
+    }
+
+    function resetGameData() {
+      score = 0;
+      currentQuestion = 0;
+      lessonScores = Array(10).fill(0);
+      started = true;
+      lastCompletedRecordId = null;
+
+      scoreEl.textContent = "0";
+      resultEl.classList.add("hidden");
+      answerEl.disabled = false;
+      restartBtn.classList.remove("hidden");
+      printBtn.classList.add("hidden");
+      exportBtn.classList.add("hidden");
+      setStudentFormDisabled(true);
+    }
+
+    function startCourse() {
+      if (!checkStudentInfo()) return;
+
+      currentLesson = 0;
+      selectedSingleLesson = false;
+      resetGameData();
+      startBtn.classList.add("hidden");
+      showQuestion();
+    }
+
+    function startSelectedLesson(lessonIndex) {
+      if (started) {
+        const confirmChange = confirm(
+          "ต้องการเปลี่ยนบทเรียนหรือไม่? คะแนนที่กำลังทำจะเริ่มใหม่"
+        );
+
+        if (!confirmChange) return;
+      }
+
+      if (!checkStudentInfo()) return;
+
+      currentLesson = lessonIndex;
+      selectedSingleLesson = true;
+      resetGameData();
+      startBtn.classList.add("hidden");
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const lesson = lessons[currentLesson];
+
+      lessonEl.textContent = currentLesson + 1;
+      questionEl.textContent = currentQuestion + 1;
+      wordEl.textContent = lesson.words[currentQuestion];
+      answerEl.value = "";
+      answerEl.disabled = false;
+      answerEl.focus();
+      messageEl.textContent = lesson.title;
+
+      createLessonDots();
+    }
+
+    function nextQuestion() {
+      currentQuestion++;
+
+      if (currentQuestion < lessons[currentLesson].words.length) {
+        showQuestion();
+      } else {
+        finishLesson();
+      }
+    }
+
+    function finishLesson() {
+      const lessonScore = lessonScores[currentLesson];
+
+      if (selectedSingleLesson) {
+        finishSingleLesson(lessonScore);
+        return;
+      }
+
+      if (currentLesson < lessons.length - 1) {
+        messageEl.textContent =
+          `ผ่านบทที่ ${currentLesson + 1} แล้ว! ได้ ${lessonScore}/5 คะแนน 🎉`;
+
+        currentLesson++;
+        currentQuestion = 0;
+
+        setTimeout(showQuestion, 1100);
+      } else {
+        finishCourse();
+      }
+    }
+
+    function finishSingleLesson(lessonScore) {
+      started = false;
+      answerEl.disabled = true;
+      wordEl.textContent = "ทำบทเรียนเสร็จแล้ว! 🎉";
+      messageEl.textContent = `ผลการฝึกบทที่ ${currentLesson + 1}`;
+      setStudentFormDisabled(false);
+
+      resultEl.innerHTML = `
+        <h2>ผลการฝึกพิมพ์ภาษาไทย</h2>
+        <strong>${escapeHtml(lessons[currentLesson].title)}</strong><br>
+        <strong>ชื่อนักเรียน:</strong> ${escapeHtml(studentNameEl.value.trim())}<br>
+        <strong>ชั้นเรียน:</strong> ${escapeHtml(studentClassEl.value)}<br><br>
+        ได้ <strong>${lessonScore}/5 คะแนน</strong><br>
+        <small>เลือกบทเรียนอื่นด้านบนเพื่อฝึกต่อได้เลย</small>
+      `;
+
+      resultEl.classList.remove("hidden");
+      createLessonDots();
+    }
+
+    function saveCompletedStudentRecord() {
+      const totalQuestions = 50;
+      const percent = Math.round((score / totalQuestions) * 100);
+
+      const record = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString("th-TH"),
+        schoolName: SCHOOL_NAME,
+        teacherName: TEACHER_NAME,
+        studentName: studentNameEl.value.trim(),
+        studentClass: studentClassEl.value,
+        lessonScores: [...lessonScores],
+        totalScore: score,
+        totalQuestions: totalQuestions,
+        percent: percent,
+        level: getResultLevel(percent),
+        teacherSignature: ""
+      };
+
+      const records = getStudentRecords();
+      records.push(record);
+      saveStudentRecords(records);
+
+      lastCompletedRecordId = record.id;
+      showStudentRecords();
+
+      return record;
+    }
+
+    function finishCourse() {
+      started = false;
+      answerEl.disabled = true;
+      wordEl.textContent = "เรียนจบแล้ว! 🎓";
+      setStudentFormDisabled(false);
+
+      const totalQuestions = 50;
+      const percent = Math.round((score / totalQuestions) * 100);
+      const completedRecord = saveCompletedStudentRecord();
+      const isNewHighScore = saveHighScore();
+
+      let feedback = "";
+
+      if (percent >= 90) {
+        feedback = "ยอดเยี่ยมมาก! คุณพิมพ์ภาษาไทยได้เก่งมาก 🌟";
+      } else if (percent >= 70) {
+        feedback = "เก่งมาก! ฝึกอีกนิดจะคล่องยิ่งขึ้น 👍";
+      } else if (percent >= 50) {
+        feedback = "ทำได้ดี! ลองทบทวนคำที่พิมพ์ผิดอีกครั้ง 😊";
+      } else {
+        feedback = "ไม่เป็นไรนะ ลองฝึกใหม่ทีละบท แล้วจะเก่งขึ้นแน่นอน 💪";
+      }
+
+      const scoresText = lessonScores
+        .map((item, index) => `บท ${index + 1}: ${item}/5`)
+        .join(" | ");
+
+      messageEl.textContent = "สรุปผลการเรียนครบ 10 บท";
+
+      resultEl.innerHTML = `
+        <div class="report-header">
+          <img
+            class="report-logo"
+            src="school-logo.png"
+            alt="ตราโรงเรียน"
+          >
+
+          <div class="report-title">
+            <h2>ใบรายงานผลการฝึกพิมพ์ภาษาไทย</h2>
+            <div class="report-school-name">
+              ${escapeHtml(completedRecord.schoolName)}
+            </div>
+          </div>
+        </div>
+
+        <strong>ชื่อนักเรียน:</strong> ${escapeHtml(completedRecord.studentName)}<br>
+        <strong>ชั้นเรียน:</strong> ${escapeHtml(completedRecord.studentClass)}<br>
+        <strong>ครูผู้สอน:</strong> ${escapeHtml(completedRecord.teacherName)}<br>
+        <strong>วันที่ทำแบบทดสอบ:</strong> ${escapeHtml(completedRecord.date)}<br><br>
+
+        <strong>คะแนนรวม: ${score}/${totalQuestions} คะแนน (${percent}%)</strong><br>
+        <strong>ผลการประเมิน:</strong> ${escapeHtml(completedRecord.level)}<br>
+        ${isNewHighScore ? "🏆 ทำคะแนนสูงสุดใหม่!<br>" : ""}
+        ${feedback}<br>
+
+        <div class="lesson-score">${scoresText}</div>
+
+        <div style="margin-top:55px;">
+          ลงชื่อครูผู้สอน ...............................................................<br>
+          (${escapeHtml(completedRecord.teacherName)})
+        </div>
+      `;
+
+      resultEl.classList.remove("hidden");
+      startBtn.textContent = "เรียนครบ 10 บทอีกครั้ง";
+      startBtn.classList.remove("hidden");
+      printBtn.classList.remove("hidden");
+      exportBtn.classList.remove("hidden");
+
+      createLessonDots();
+    }
+
+    function csvCell(value) {
+      return `"${String(value ?? "").replace(/"/g, '""')}"`;
+    }
+
+    function downloadCsv(headers, rows, fileName) {
+      const csvContent =
+        "\uFEFF" +
+        headers.map(csvCell).join(",") +
+        "\n" +
+        rows.map(row => row.map(csvCell).join(",")).join("\n");
+
+      const blob = new Blob([csvContent], {
+        type: "text/csv;charset=utf-8;"
+      });
+
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = fileName;
+
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      URL.revokeObjectURL(link.href);
+    }
+
+    function getExcelHeaders() {
+      return [
+        "วันที่ทำแบบฝึกหัด",
+        "ชื่อโรงเรียน",
+        "ชื่อนักเรียน",
+        "ชั้นเรียน",
+        "ครูผู้สอน",
+        "คะแนนบทที่ 1",
+        "คะแนนบทที่ 2",
+        "คะแนนบทที่ 3",
+        "คะแนนบทที่ 4",
+        "คะแนนบทที่ 5",
+        "คะแนนบทที่ 6",
+        "คะแนนบทที่ 7",
+        "คะแนนบทที่ 8",
+        "คะแนนบทที่ 9",
+        "คะแนนบทที่ 10",
+        "คะแนนรวม",
+        "คะแนนเต็ม",
+        "ร้อยละ",
+        "ผลการประเมิน",
+        "ลายมือชื่อครู"
+      ];
+    }
+
+    function recordToRow(record) {
+      return [
+        record.date,
+        record.schoolName,
+        record.studentName,
+        record.studentClass,
+        record.teacherName,
+        ...record.lessonScores.map(item => `${item}/5`),
+        record.totalScore,
+        record.totalQuestions,
+        `${record.percent}%`,
+        record.level,
+        record.teacherSignature
+      ];
+    }
+
+    function exportLatestRecord() {
+      const records = getStudentRecords();
+      const record = records.find(item => item.id === lastCompletedRecordId);
+
+      if (!record) {
+        alert("กรุณาเรียนให้ครบทั้ง 10 บทก่อนส่งออกผลรายบุคคลค่ะ");
+        return;
+      }
+
+      const safeName = record.studentName.replace(/[\\/:*?"<>|]/g, "_");
+
+      downloadCsv(
+        getExcelHeaders(),
+        [recordToRow(record)],
+        `ผลการฝึกพิมพ์_${safeName}.csv`
+      );
+    }
+
+    function exportAllToExcel() {
+      const records = getStudentRecords();
+
+      if (records.length === 0) {
+        alert("ยังไม่มีผลการเรียนที่บันทึกไว้ค่ะ");
+        return;
+      }
+
+      downloadCsv(
+        getExcelHeaders(),
+        records.map(recordToRow),
+        "รายงานผลการฝึกพิมพ์ภาษาไทย_นักเรียนทั้งหมด.csv"
+      );
+    }
+
+    function showStudentRecords() {
+      const records = getStudentRecords();
+      recordCountEl.textContent = `${records.length} รายการ`;
+
+      if (records.length === 0) {
+        recordsTableBodyEl.innerHTML = `
+          <tr>
+            <td colspan="8">ยังไม่มีผลการเรียนที่บันทึกไว้</td>
+          </tr>
+        `;
+        return;
+      }
+
+      const sortedRecords = [...records].reverse();
+
+      recordsTableBodyEl.innerHTML = sortedRecords.map((record, index) => `
+        <tr>
+          <td>${records.length - index}</td>
+          <td>${escapeHtml(record.date)}</td>
+          <td>${escapeHtml(record.studentName)}</td>
+          <td>${escapeHtml(record.studentClass)}</td>
+          <td>${record.totalScore}/${record.totalQuestions}</td>
+          <td>${record.percent}%</td>
+          <td>${escapeHtml(record.level)}</td>
+          <td>
+            <button
+              class="delete-record-button"
+              type="button"
+              data-record-id="${record.id}"
+            >
+              ลบ
+            </button>
+          </td>
+        </tr>
+      `).join("");
+    }
+
+    answerEl.addEventListener("input", () => {
+      if (!started) return;
+
+      const correctAnswer = lessons[currentLesson].words[currentQuestion];
+
+      if (answerEl.value === correctAnswer) {
+        score++;
+        lessonScores[currentLesson]++;
+        scoreEl.textContent = score;
+        messageEl.textContent = "ถูกต้อง! เก่งมาก 🎉";
+        answerEl.disabled = true;
+
+        setTimeout(nextQuestion, 500);
+      }
+    });
+
+    startBtn.addEventListener("click", startCourse);
+
+    restartBtn.addEventListener("click", () => {
+      if (selectedSingleLesson) {
+        startSelectedLesson(currentLesson);
+      } else {
+        startCourse();
+      }
+    });
+
+    printBtn.addEventListener("click", () => {
+      window.print();
+    });
+
+    exportBtn.addEventListener("click", exportLatestRecord);
+
+    exportAllBtn.addEventListener("click", exportAllToExcel);
+
+    clearRecordsBtn.addEventListener("click", () => {
+      const records = getStudentRecords();
+
+      if (records.length === 0) {
+        alert("ยังไม่มีข้อมูลให้ล้างค่ะ");
+        return;
+      }
+
+      const confirmed = confirm(
+        `ต้องการล้างข้อมูลผลการเรียนทั้งหมด ${records.length} รายการใช่หรือไม่?\nการล้างข้อมูลนี้ไม่สามารถย้อนกลับได้`
+      );
+
+      if (confirmed) {
+        localStorage.removeItem(RECORDS_KEY);
+        showStudentRecords();
+        alert("ล้างข้อมูลผลการเรียนเรียบร้อยแล้วค่ะ");
+      }
+    });
+
+    recordsTableBodyEl.addEventListener("click", event => {
+      const button = event.target.closest(".delete-record-button");
+
+      if (!button) return;
+
+      const recordId = Number(button.dataset.recordId);
+      const records = getStudentRecords();
+      const selectedRecord = records.find(record => record.id === recordId);
+
+      if (!selectedRecord) return;
+
+      const confirmed = confirm(
+        `ต้องการลบผลของ ${selectedRecord.studentName} ใช่หรือไม่?`
+      );
+
+      if (!confirmed) return;
+
+      saveStudentRecords(records.filter(record => record.id !== recordId));
+      showStudentRecords();
+    });
+
+    loadStudentInfo();
+    showHighScore();
+    createLessonDots();
+    showStudentRecords();
+  </script>
+</body>
+</html>
